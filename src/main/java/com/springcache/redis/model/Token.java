@@ -7,9 +7,9 @@ public class Token implements Serializable{
 
     private static final long serialVersionUID = 7987964364021714517L;
 
-    String id;
-    String userId;
-    Date createdAt;
+    private String id;
+    private String userId;
+    private Date createdAt;
 
     public String getId() {
         return id;

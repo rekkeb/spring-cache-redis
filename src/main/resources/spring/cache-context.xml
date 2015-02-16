@@ -26,7 +26,13 @@
     <bean
         id="redisTemplate"
         class="org.springframework.data.redis.core.RedisTemplate"
-        p:connectionFactory-ref="jedisConnectionFactory"/>
+        p:connectionFactory-ref="jedisConnectionFactory"
+        p:keySerializer-ref="stringRedisSerializer"/>
+
+    <!-- redis String serializer to avoid weird key name's -->
+    <bean
+            id="stringRedisSerializer"
+            class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
 
     <!-- declare Redis Cache Manager -->
     <bean
