@@ -6,4 +6,7 @@ public interface MongoDbService {
 
     Token findById(String id);
 
+    Token findByUserId(String userId);
+
+    Token save(Token token);
 }

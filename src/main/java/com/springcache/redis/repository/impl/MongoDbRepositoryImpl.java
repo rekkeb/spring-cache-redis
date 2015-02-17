@@ -22,4 +22,25 @@ public class MongoDbRepositoryImpl implements MongoDbRepository {
 
         return t;
     }
+
+    @Override
+    public Token findByUserId(String userId) {
+        System.out.println("Getting new token for ... '"+userId+"'");
+
+        Token t = new Token();
+        t.setId(UUID.randomUUID().toString());
+        t.setUserId(userId);
+        t.setCreatedAt(new Date());
+
+        return t;
+    }
+
+    @Override
+    public Token save(Token token) {
+        System.out.println("Saved token: " + token);
+
+        token.setId(token.getId()+"-saved");
+
+        return token;
+    }
 }

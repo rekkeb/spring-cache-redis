@@ -3,13 +3,10 @@ package com.springcache.redis.controller;
 import com.springcache.redis.model.Token;
 import com.springcache.redis.service.MongoDbService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("")
@@ -17,10 +14,17 @@ public class HelloController {
 
 	@Autowired private MongoDbService mongoDbService;
 
-	@RequestMapping(value="/token/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/token/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Token getToken(@PathVariable String id) {
+	public Token getTokenForUserId(@PathVariable String userId) {
 
-		return mongoDbService.findById(id);
+		return mongoDbService.findByUserId(userId);
+	}
+
+	@RequestMapping(value="/token", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void setToken(@RequestBody Token token) {
+
+		mongoDbService.save(token);
 	}
 }
